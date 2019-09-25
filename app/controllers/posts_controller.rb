@@ -5,13 +5,18 @@ class PostsController < ApplicationController
   end
 
   def new
+    @post = Post.new
   end
 
   def create
     @post = Post.new(post_params)
-    @post.save
 
-    redirect_to @post
+    #validates for no empty title nor body in the post
+    if @post.save
+      redirect_to @post
+    else
+      render 'new'
+    end
   end
 
   def show
